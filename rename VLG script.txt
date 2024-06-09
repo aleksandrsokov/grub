@@ -1,0 +1,23 @@
+vgcreate newVG /dev/sdc /dev/sdd /dev/sde
+  Physical volume "/dev/sdc" successfully created.
+  Physical volume "/dev/sdd" successfully created.
+  Physical volume "/dev/sde" successfully created.
+  Volume group "newVG" successfully created
+root@grub:/home/vagrant# lvcreate -n newLG -L 300MB newVG
+  Logical volume "newLG" created.
+root@grub:/home/vagrant# vgs
+  VG    #PV #LV #SN Attr   VSize   VFree
+  newVG   3   1   0 wz--n- 744.00m 444.00m
+root@grub:/home/vagrant# lvs
+  LV    VG    Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  newLG newVG -wi-a----- 300.00m
+root@grub:/home/vagrant# vgrename newVG OtusVG
+  Volume group "newVG" successfully renamed to "OtusVG"
+root@grub:/home/vagrant# lvrename OtusVG newLG OtusLG
+  Renamed "newLG" to "OtusLG" in volume group "OtusVG"
+root@grub:/home/vagrant# vgs
+  VG     #PV #LV #SN Attr   VSize   VFree
+  OtusVG   3   1   0 wz--n- 744.00m 444.00m
+root@grub:/home/vagrant# lvs
+  LV     VG     Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  OtusLG OtusVG -wi-a----- 300.00m
